@@ -14,7 +14,7 @@ The LNQ2023 Challenge training dataset will consist of a unique set of high-qual
 
 ## Using the model via the docker container
 
-this GitHub repository already includes the model weights, which were used for the final submission for the MICCAI LNQ2023 challenge (https://github.com/StefanFischer/MediastinalLymphNodeSegmentation/tree/main/lnq_segmentation/nnunet/nnUNet_results). If you want to use the model you can use the test.sh script that will build a docker container and run inference on the image at location './test/images/mediastinal-ct/*.nii.gz' (only one image per run). 
+this GitHub repository already includes the model weights, which were used for the final submission for the MICCAI LNQ2023 challenge (https://github.com/StefanFischer/MediastinalLymphNodeSegmentation/tree/main/lnq_segmentation/nnunet/nnUNet_results). If you want to use the model you can use the test.sh script that will build a docker container and run inference on the image at location './test/images/mediastinal-ct/*.nii.gz' (only one image per run).
 
 ## Using the model via Grand Challenge Website
 
@@ -47,6 +47,8 @@ Now change the standard nnUNet code by overwriting the source code in your pytho
 
 ## Train the model
 
+Training your own model with the same datasets we used for the challenge will take roughly 33 hours on a NVIDIA A6000.
+
 Preprocess data with nnUNetv2 (plans are already in nnUNet_preprocessed):  <br>
 
 `
@@ -61,6 +63,8 @@ nnUNetv2_train 100 3d_fullres all
 
 
 ## Inference with model
+
+This will not include preprocessing (lung cropping via totalsegmentator) and postprocessing (pathologic lymph nodes are filtered by Shortest-Axis-Diameter >= 10mm), for that use or check the Docker container and the process.py-Script.
 
 After training you can use the model as a standard nnUNetv2 model:  <br>
 
